@@ -57,7 +57,7 @@ export class CalendarMonthPickerComponent implements OnInit {
         this.pickerForm.valueChanges.subscribe(
             (formValues) => {
                 if(this.pickerForm.valid) {
-                    this.appointmentService.setup(formValues);
+                    this.appointmentService.calendarDataChanged.next(formValues);
                 }
             }
         );

@@ -15,7 +15,11 @@ export class LoadingSpinnerInterceptor implements HttpInterceptor {
         return next.handle(request)
             .pipe(
                 finalize(
-                    () => this.loadingSpinnerService.hide()
+                    () => {
+                        setTimeout(() => { 
+                            this.loadingSpinnerService.hide()
+                        }, 3000);
+                    }
                 )
             );
     }

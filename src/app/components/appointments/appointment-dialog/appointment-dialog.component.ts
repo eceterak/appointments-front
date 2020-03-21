@@ -23,7 +23,8 @@ export class AppointmentDialogComponent implements OnInit {
     services: Service[];
     editMode: boolean = false;
     doctor = this.data.doctor;
-    department = this.data.department
+    department = this.data.department;
+    appointment: Appointment;
     getErrorMessage = UtilitiesService.getErrorMessage;
 
     constructor(
@@ -70,6 +71,8 @@ export class AppointmentDialogComponent implements OnInit {
 
             this.appointmentService.getAppointment(this.data.id).subscribe(
                 (appointment: Appointment) => {
+                    this.appointment = appointment;
+
                     this.appointmentForm.get('patient').setValue(appointment.patient);
                     this.appointmentForm.get('service').setValue(appointment.service);
                 }

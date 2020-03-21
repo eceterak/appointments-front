@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 })
 export class LoadingSpinnerComponent implements OnInit, OnDestroy {
     spinnerSubscription: Subscription;
-    @Input() isLoading = true;
+    @Input() isLoading = false;
 
     constructor(private loadingSpinnerService: LoadingSpinnerService) {}
 

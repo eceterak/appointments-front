@@ -19,6 +19,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule, MatInputModule, MatTableModule, MatButtonModule } from '@angular/material';
 
 @NgModule({
@@ -47,7 +48,8 @@ import { MatFormFieldModule, MatInputModule, MatTableModule, MatButtonModule } f
         MatSnackBarModule,
         MatDatepickerModule,
         MatMomentDateModule,
-        MatToolbarModule
+        MatToolbarModule,
+        MatProgressSpinnerModule
     ],
     exports: [
         SearchComponent,
@@ -72,7 +74,8 @@ import { MatFormFieldModule, MatInputModule, MatTableModule, MatButtonModule } f
         MatSnackBarModule,
         MatDatepickerModule,
         MatMomentDateModule,
-        MatToolbarModule
+        MatToolbarModule,
+        MatProgressSpinnerModule
     ]
 })
 

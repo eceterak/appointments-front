@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'http://127.0.0.1:8001/api/',
+  api: 'http://127.0.0.1:8000/api/',
   aws: 'https://wheeliez.s3.eu-central-1.amazonaws.com'
 };
 

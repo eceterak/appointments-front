@@ -8,15 +8,19 @@ import { AppointmentService } from '../../appointment.service';
 import { MonthPickerResponse } from 'src/app/interfaces/montPickerResponse.interface';
 import { Department } from 'src/app/models/department.model';
 import { CalendarRow } from 'src/app/interfaces/calendarRow.interface';
+import { CalendarData } from 'src/app/interfaces/calendarData.interface';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
+
 export class CalendarComponent implements OnInit, OnDestroy {
 
-    appointmentServiceSubscription: Subscription;
+    calendarDataChangedSubscription: Subscription;
+    appointmentsChangedSubscription: Subscription;
     appointmentsTable: CalendarRow[];
     doctor: Doctor;
     department: Department;
@@ -27,18 +31,23 @@ export class CalendarComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.appointmentServiceSubscription = this.appointmentService.detailsChanged.subscribe(
-            (response: MonthPickerResponse) => {
-                console.log(response.appointmentsTable);
-                this.appointmentsTable = response.appointmentsTable;
-                this.department = response.department;
-                this.doctor = response.doctor;
-            }
+        this.calendarDataChangedSubscription = this.appointmentService.calendarDataChanged.pipe(
+            switchMap((calendarData: CalendarData) => {
+                this.department = calendarData.department;
+                this.doctor = calendarData.doctor;
+
+                return this.appointmentService.getAllAppointments(calendarData.doctor.id, calendarData.date)
+            })
+        ).subscribe((appointmentsTable: CalendarRow[]) => this.appointmentsTable = appointmentsTable);
+
+        this.appointmentsChangedSubscription = this.appointmentService.appointmentsChanged.subscribe(
+            (appointmentsTable: CalendarRow[]) => this.appointmentsTable = appointmentsTable
         );
     }
 
     ngOnDestroy() {
-        this.appointmentServiceSubscription.unsubscribe();
+        this.calendarDataChangedSubscription.unsubscribe();
+        this.appointmentsChangedSubscription.unsubscribe();
     }
 
     get slots(): string[] {

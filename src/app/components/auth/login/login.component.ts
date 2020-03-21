@@ -34,23 +34,12 @@ export class LoginComponent implements OnInit {
                     this.router.navigate(['/appointments']);
                 },
                 (errorResponse: HttpErrorResponse) => {
-                    console.log(errorResponse);
-
-                    this.setLoginFormInvalid();
-
                     this.alertService.alert.next({
                         messages: errorResponse.error.error,
                         class: 'danger'
                     });
                 }
             );
-        } else {
-            this.setLoginFormInvalid();
         }
-    }
-
-    setLoginFormInvalid() { 
-        this.loginForm.controls.email.setErrors({'invalid': true});
-        this.loginForm.controls.password.setErrors({'invalid': true});
     }
 }
